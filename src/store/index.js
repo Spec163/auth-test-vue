@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-// import { auth } from './auth.module';
-import AuthService from "../services/auth-service";
+// import { auth } from './auth.module'
+import AuthService from '../services/auth-service'
 import getters from './getters/getters'
 
 Vue.use(Vuex);

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-toolbar dense color="deep-purple accent-4" dark>
+    <v-app-bar app color="deep-purple accent-4" dense dark>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-toolbar-title>Title</v-toolbar-title>
@@ -18,7 +18,11 @@
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
-    </v-toolbar>
+
+      <v-btn v-if="true" icon href="/logout">
+        <v-icon>mdi-export</v-icon>
+      </v-btn>
+    </v-app-bar>
 
     <h2> Hello </h2>
     <div class="container">

@@ -1,31 +1,47 @@
 <template>
-    <div class="col-md-12">
-        <div class="card card-container">
-            <form name="form" @submit.prevent="handleLogin">
-                <div class="form-group">
-                    <label for="login">Login</label>
-                    <input
-                            v-model="user.login"
-                            type="text"
-                            name="login"
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input
-                            v-model="user.password"
-                            type="password"
-                            name="password"
-                    />
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary btn-block" :disabled="loading">
-                        <span v-show="loading" class="spinner-border spinner-border-sm"></span>
-                        <span>Login</span>
-                    </button>
-                </div>
-            </form>
-        </div>
+    <div>
+        <v-form name="form" @submit.prevent="handleLogin">
+            <v-container>
+                <v-row justify="center">
+                    <v-col cols="12" sm="8" md="4"></v-col>
+                    <v-col cols="12" sm="8" md="4">
+                        <v-text-field
+                                v-model="user.login"
+                                type="text"
+                                label="Login"
+                                counter
+                                outlined
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+
+                <v-row>
+                    <v-col cols="12" sm="8" md="4"></v-col>
+                    <v-col cols="12" sm="8" md="4">
+                        <v-text-field
+                                v-model="user.password"
+                                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="show ? 'text' : 'password'"
+                                name="password"
+                                label="Password"
+                                counter
+                                outlined
+                                @click:append="show = !show"
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-btn
+                        width="100px"
+                        rounded
+                        color="primary"
+                        dark
+                        @click="handleLogin"
+                >
+                    <span>Login</span>
+                </v-btn>
+            </v-container>
+        </v-form>
+
     </div>
 </template>
 
@@ -38,7 +54,7 @@
         data() {
             return {
                 user: new User('', ''),
-                loading: false
+                show: false,
             };
         },
         computed: {
@@ -56,7 +72,6 @@
                 'LOGIN'
             ]),
             handleLogin() {
-                this.loading = true;
                 if (this.user.login && this.user.password) {
                     this.LOGIN(this.user).then(
                         () => {
