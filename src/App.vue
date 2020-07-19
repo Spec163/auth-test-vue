@@ -7,19 +7,8 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
 
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-
-      <v-btn v-if="true" icon href="/logout">
+      <v-btn v-if="GET_USER_IS_ACTIVE" icon @click="logOut">
         <v-icon>mdi-export</v-icon>
       </v-btn>
     </v-app-bar>
@@ -32,17 +21,19 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
 
   export default {
     name: 'App',
     computed: {
-      currentUser() {
-        return this.$store.state.user;
-      }
+      ...mapGetters ([
+              'GET_USER_IS_ACTIVE'
+      ]),
     },
+
     methods: {
       logOut() {
-        this.$store.dispatch('auth/logout');
+        this.$store.dispatch('auth/LOGOUT');
         this.$router.push('/login');
       }
     }

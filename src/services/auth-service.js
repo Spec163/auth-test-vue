@@ -23,11 +23,20 @@ class AuthService {
     }
 
     register(user) {
-        return axios.post(API_URL + 'registration', {
-            login: user.login,
-            phoneNumber: user.phoneNumber,
-            password: user.password
-        });
+        return axios
+            .post(API_URL + 'registration', {
+                phoneNumber: user.phoneNumber,
+                login: user.login,
+                password: user.password
+        })
+            .then(response => {
+                return response
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    return error.response
+                }
+            });
     }
 }
 

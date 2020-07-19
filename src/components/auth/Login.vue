@@ -47,7 +47,6 @@
 
 <script>
     import User from '../../models/user'
-    import {mapActions} from 'vuex'
 
     export default {
         name: 'Login',
@@ -68,12 +67,9 @@
             }
         },
         methods: {
-            ...mapActions ([
-                'LOGIN'
-            ]),
             handleLogin() {
                 if (this.user.login && this.user.password) {
-                    this.LOGIN(this.user).then(
+                    this.$store.dispatch('auth/LOGIN', this.user).then(
                         () => {
                             this.$router.push('/profile');
                         }

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '../components/auth/Login'
-import Register from '../components/auth/Register'
+import Registration from '../components/auth/Registration'
 
 
 Vue.use(Router);
@@ -24,8 +24,8 @@ export const router = new Router({
             component: Login
         },
         {
-            path: '/register',
-            component: Register
+            path: '/registration',
+            component: Registration
         },
         {
             path: '/profile',
