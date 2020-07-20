@@ -4,7 +4,6 @@
         <v-form name="form" @submit.prevent="registration">
         <v-container>
             <v-row justify="center">
-                <v-col cols="12" sm="8" md="4"></v-col>
                 <v-col cols="12" sm="8" md="4">
                     <v-text-field
                             v-model="user.phoneNumber"
@@ -17,7 +16,6 @@
             </v-row>
 
             <v-row justify="center">
-                <v-col cols="12" sm="8" md="4"></v-col>
                 <v-col cols="12" sm="8" md="4">
                     <v-text-field
                             v-model="user.login"
