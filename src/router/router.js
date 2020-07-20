@@ -34,6 +34,11 @@ export const router = new Router({
             // lazy-loaded
             component: () => import('../components/auth/Profile')
         },
+        {
+            path: '/billing/call',
+            name: 'call',
+            component: () => import('../components/billing/Call')
+        }
         // {
         //     path: '/admin',
         //     name: 'admin',
