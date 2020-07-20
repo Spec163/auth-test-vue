@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h3>{{ message }}</h3>
         <v-form name="form" @submit.prevent="handleLogin">
             <v-container>
                 <v-row justify="center">
@@ -54,6 +55,7 @@
             return {
                 user: new User('', ''),
                 show: false,
+                message: ''
             };
         },
         computed: {
@@ -69,11 +71,13 @@
         methods: {
             handleLogin() {
                 if (this.user.login && this.user.password) {
-                    this.$store.dispatch('auth/LOGIN', this.user).then(
-                        () => {
-                            this.$router.push('/profile');
-                        }
-                    );
+                    this.$store.dispatch('auth/LOGIN', this.user)
+                        .then(() => {
+                                this.$router.push('/profile');
+                        })
+                        .catch(() => {
+                            this.message = 'Incorrect login or password!'
+                        })
                 }
             }
         }
@@ -84,5 +88,10 @@
     label {
         display: block;
         margin-top: 10px;
+    }
+    h3 {
+        color: red;
+        font-family: "Arial Narrow";
+        font-style: italic;
     }
 </style>
