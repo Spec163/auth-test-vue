@@ -1,9 +1,31 @@
 <template>
     <div>
-        <v-btn @click="starter" :disabled="isButtonDisabled">Start</v-btn>
 
-        <v-spacer></v-spacer>
-        <v-btn @click="stopTimer">Stop</v-btn>
+        <v-row justify="center">
+            <v-dialog v-model="dialog" persistent max-width="290">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                            @click="starter"
+                            color="primary"
+                            dark
+                            v-bind="attrs"
+                            v-on="on"
+                    >
+                        Call
+                    </v-btn>
+                </template>
+                <v-card>
+                    <v-card-title class="headline">Название услуги</v-card-title>
+                    <v-card-text>расчёты</v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="red" large icon @click="stopOrderTimer">
+                            <v-icon>phone_callback</v-icon>
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+        </v-row>
     </div>
 </template>
 
@@ -14,9 +36,9 @@
             return {
                 currentTime: 10,
                 timer: null,
-                isButtonDisabled: false,
                 canSend: false,
-                send: ''
+                send: '',
+                dialog: false
             }
         },
 
@@ -24,18 +46,20 @@
             this.stopTimer()
         },
         methods: {
+            stopOrderTimer() {
+                this.dialog = false
+                this.stopTimer()
+            },
             starter() {
-                this.isButtonDisabled = true
                 this.currentTime = 10
                 this.startTimer()
             },
             startTimer() {
                 this.timer = setInterval(() => {
                     this.currentTime--
-                }, 1100)
+                }, 1000)
             },
             stopTimer() {
-                this.isButtonDisabled = false
                 console.log('this.timer:  ',this.timer)
                 clearTimeout(this.timer)
             },
