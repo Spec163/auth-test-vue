@@ -6,10 +6,13 @@ const API_URL = 'http://localhost:8090/rabbitmq/'
 class BalanceReplenishmentService {
     replenish(balance) {
         return axios
-            .post(API_URL + 'replenish/', {
+            .post(API_URL + 'replenish/',
+                {
                 phoneNumber: balance.phoneNumber,
                 money: balance.money
-            }, {headers: authHeader()})
+                },
+                {headers: authHeader()}
+            )
             .then(response => {
                 return response
             })
