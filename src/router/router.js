@@ -38,7 +38,8 @@ export const router = new Router({
             path: '/billing/call',
             name: 'call',
             component: () => import('../components/billing/Call')
-        }
+        },
+
         // {
         //     path: '/admin',
         //     name: 'admin',
