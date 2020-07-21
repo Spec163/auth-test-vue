@@ -10,7 +10,7 @@
         <v-form @submit.prevent="replenishBalance">
             <v-container>
                 <v-row justify="center">
-                    <v-col cols="12" sm="8" md="4">
+                    <v-col cols="12" sm="8" md="3">
                         <v-text-field
                                 type="number"
                                 outlined
@@ -20,7 +20,7 @@
                     </v-col>
                 </v-row>
                 <v-row justify="center">
-                    <v-col cols="12" sm="8" md="4">
+                    <v-col cols="12" sm="8" md="3">
                         <v-text-field
                                 label="Phone Number"
                                 type="text"
