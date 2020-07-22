@@ -33,7 +33,6 @@
         </v-btn>
       </v-app-bar>
 
-      <h2> Hello </h2>
       <div class="container">
         <router-view />
       </div>

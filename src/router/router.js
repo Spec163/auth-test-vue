@@ -35,9 +35,9 @@ export const router = new Router({
             component: () => import('../components/auth/Profile')
         },
         {
-            path: '/billing/call',
-            name: 'call',
-            component: () => import('../components/billing/Call')
+            path: '/imitator',
+            name: 'imitator',
+            component: () => import('../components/billing/imitator')
         },
 
         // {
