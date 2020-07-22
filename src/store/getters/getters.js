@@ -7,5 +7,8 @@ export default {
     },
     GET_USER_IS_ACTIVE(state) {
         return state.auth.status.loggedIn
-    }
+    },
+    // GET_MAX_SERVICE_COST(state) {
+    //
+    // }
 }
