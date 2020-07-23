@@ -101,7 +101,7 @@
 <script>
     // Увеличение в секунду
     import MaxServiceCost from '../../models/max-service-cost'
-    import Order from '../../models/Order'
+    import Order from '../../models/order'
     import BillingService from '../../services/billing-service/billing-service'
 
     const callPerTimeUnit = 1;

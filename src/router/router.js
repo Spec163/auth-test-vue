@@ -37,15 +37,14 @@ export const router = new Router({
         {
             path: '/imitator',
             name: 'imitator',
-            component: () => import('../components/billing/imitator')
+            component: () => import('../components/billing/Imitator')
         },
+        {
+            path: '/crm/user-list',
+            name: 'user-list',
+            component: () => import('../components/crm/UserList')
+        }
 
-        // {
-        //     path: '/admin',
-        //     name: 'admin',
-        //     // lazy-loaded
-        //     component: () => import('./views/BoardAdmin.vue')
-        // },
     ]
 });
 
