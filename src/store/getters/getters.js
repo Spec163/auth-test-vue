@@ -8,6 +8,7 @@ export default {
     GET_USER_IS_ACTIVE(state) {
         return state.auth.status.loggedIn
     },
+    // сделать сортироваку
     GET_USERS_INFO(state) {
         return state.users
     }
