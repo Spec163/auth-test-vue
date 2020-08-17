@@ -62,6 +62,11 @@
                 'GET_USER_ROLE'
             ]),
         },
+
+        /*
+        ошибка при повторном пополнении баланса
+        (Cannot set reactive property on undefined, null, or primitive value)
+        ПЕРЕДЕЛАТЬ!     */
         mounted() {
             UserService.getUserInfo().then(
                 response => {

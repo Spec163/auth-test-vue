@@ -59,7 +59,8 @@
                 this.UPDATE_USERS_INFO_BALANCE(this.userInfo)
             }
         },
-        mounted() {
+        // Fixed bug: вызов после инициализации реактивности
+        created() {
             this.GET_USERS_INFO_FROM_API()
                 .then(response => {
                     if (response.data) {

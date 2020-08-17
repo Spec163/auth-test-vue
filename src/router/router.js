@@ -43,7 +43,13 @@ export const router = new Router({
             path: '/crm/user-list',
             name: 'user-list',
             component: () => import('../components/crm/UserList')
-        }
+        },
+        {
+            path: '/profile/tariff',
+            name: 'tariff',
+            // lazy-loaded
+            component: () => import('../components/tariff/TariffList')
+        },
 
     ]
 });

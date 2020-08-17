@@ -6,12 +6,14 @@ import getters from './getters/getters'
 import actions from './actions/actions'
 import mutations from './mutations/mutations'
 
+
 Vue.use(Vuex);
 
 
 export default new Vuex.Store({
   state: {
-    users: []
+    users: [],
+    tariffs: []
   },
   mutations,
   actions,

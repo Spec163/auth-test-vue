@@ -11,5 +11,7 @@ export default {
     // сделать сортироваку
     GET_USERS_INFO(state) {
         return state.users
-    }
+    },
+    SORTED_TARIFFS: state => (state.tariffs || []).sort((a, b) => -(a.id - b.id))
+
 }
