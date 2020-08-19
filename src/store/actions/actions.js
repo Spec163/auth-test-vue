@@ -2,6 +2,7 @@ import axios from 'axios'
 import authHeader from '../../services/auth-header'
 // import Balance from '../../models/balance'
 // import BalanceReplenishmentService from '../../services/billing-service/balance-replenishment-service'
+import TariffService from '../../services/requests/tariff-service'
 
 const API_URL = 'http://localhost:8090/'
 // let newBalance = new Balance('', 0)
@@ -34,5 +35,15 @@ export  default {
                 console.log(error)
                 return error;
             })
+    },
+
+    async REMOVE_TARIFF_ACTION({commit}, tariff) {
+        const result = await TariffService.removeTariff(tariff.id)
+
+        console.log('Result: ', result)
+
+        if (result.status === 200) {
+            commit('REMOVE_TARIFF_MUTATION', tariff)
+        }
     },
 }

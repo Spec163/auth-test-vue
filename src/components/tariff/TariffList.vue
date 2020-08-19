@@ -42,7 +42,7 @@
             this.GET_TARIFFS_FROM_API()
                 .then(response => {
                     if (response.data) {
-                        console.log('Tariff arrived!', response.data)
+                        console.log('Tariffs arrived!', response.data)
                     }
                 })
         }

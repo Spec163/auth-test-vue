@@ -1,5 +1,5 @@
 <template>
-    <v-card class="my-2 text-settings" width="1050px">
+    <v-card class="my-2 text-settings" width="850px">
         <v-main class="yellow darken-3 black--text pt-8">
             <div class="main-block">
                 <v-card-title primary-title>
@@ -30,7 +30,7 @@
                         <tbody>
                         <tr>
                             <td>{{ tariff.price }} руб</td>
-                            <td>{{ tariff.calls }} мин</td>
+                            <td>{{ tariff.call }} мин</td>
                             <td>{{ tariff.sms }} смс</td>
                             <td>{{ tariff.internet }} Гб</td>
                         </tr>
@@ -43,18 +43,19 @@
 </template>
 
 <script>
-    // import { mapActions } from 'vuex'
+    import { mapActions } from 'vuex'
 
     export default {
         name: "TariffRow",
         props: ['tariff', 'editTariff'],
         methods: {
-            // ...mapActions(['removeTariffAction']),
+            ...mapActions(['REMOVE_TARIFF_ACTION']),
             edit() {
                 this.editTariff(this.tariff)
             },
             del() {
-                // this.removeTariffAction(this.tariff)
+              console.log(this.tariff)
+              this.REMOVE_TARIFF_ACTION(this.tariff)
             }
         }
     }

@@ -15,6 +15,18 @@ export default {
         state.tariffs = tariffs;
     },
 
+
+    REMOVE_TARIFF_MUTATION(state, tariff) {
+        const deletionIndex = state.tariffs.findIndex(item => item.id === tariff.id)
+
+        if (deletionIndex > -1) {
+            state.tariffs = [
+                ...state.tariffs.slice(0, deletionIndex),
+                ...state.tariffs.slice(deletionIndex + 1)
+            ]
+        }
+    },
+
     // ADD_TARIFF_TO_STATE(state, tariff) {
     //     state.tariffs = [
     //         ...state.tariffs,

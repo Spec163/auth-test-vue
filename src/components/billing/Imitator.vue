@@ -131,7 +131,8 @@
         },
         methods: {
             /*
-            * Сделать вызов info() при переходе на домен billing
+            * Ошибка "Maximum call stack size exceeded"
+            * возникает из-за действий внутри тега <v-dialog></v-dialog>
             */
             info() {
                 BillingService.expenses(this.maxServiceCost)
