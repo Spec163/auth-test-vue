@@ -3,6 +3,8 @@ import authHeader from '../../services/auth-header'
 // import Balance from '../../models/balance'
 // import BalanceReplenishmentService from '../../services/billing-service/balance-replenishment-service'
 import TariffService from '../../services/requests/tariff-service'
+import BillingService from '../../services/billing-service/billing-service'
+// import UserService from "@/services/requests/user-service";
 
 const API_URL = 'http://localhost:8090/'
 // let newBalance = new Balance('', 0)
@@ -37,6 +39,10 @@ export  default {
             })
     },
 
+    // async GET_USER({commit}) {
+    //     const userData = await UserService.getUserInfo()
+    // },
+
     async REMOVE_TARIFF_ACTION({commit}, tariff) {
         const result = await TariffService.removeTariff(tariff.id)
 
@@ -46,4 +52,12 @@ export  default {
             commit('REMOVE_TARIFF_MUTATION', tariff)
         }
     },
+
+    async CHANGE_USER_TARIFF_ACTION({commit}, tariff) {
+        const result = await BillingService.changeUserTariff(tariff);
+
+        if (result.status === 200) {
+            commit('CHANGE_USER_TARIFF_MUTATION', tariff)
+        }
+    }
 }

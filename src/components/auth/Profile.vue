@@ -25,7 +25,7 @@
                                 label="Phone Number"
                                 type="text"
                                 v-model="balance.phoneNumber"
-                                v-if="GET_USER_ROLE === 'ROLE_ADMIN'"
+                                v-if="IS_ADMIN_ROLE"
                                 outlined
                         ></v-text-field>
                     </v-col>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-    import UserService from '../../services/requests/user-service'
+    // import UserService from '../../services/requests/user-service'
     import {mapGetters} from 'vuex'
     import Balance from '../../models/balance'
     import BalanceReplenishmentService from '../../services/billing-service/balance-replenishment-service'
@@ -59,7 +59,8 @@
         computed: {
             ...mapGetters([
                 'GET_USER_TOKEN',
-                'GET_USER_ROLE'
+                'GET_USER_ROLE',
+                'IS_ADMIN_ROLE'
             ]),
         },
 
@@ -68,10 +69,10 @@
         (Cannot set reactive property on undefined, null, or primitive value)
         ПЕРЕДЕЛАТЬ!     */
         mounted() {
-            UserService.getUserInfo().then(
+            /*UserService.getUserInfo().then(
                 response => {
                     this.content = response.data;
-                })
+                })*/
         },
         methods: {
             replenishBalance() {

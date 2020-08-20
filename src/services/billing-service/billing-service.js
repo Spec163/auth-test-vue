@@ -28,6 +28,12 @@ class BillingService {
                 {headers: authHeader()}
             )
     }
+    changeUserTariff(tariff) {
+        console.log('New tariff: ', tariff)
+        // return axios.post(API_URL + 'change-tariff',{
+        //
+        // })
+    }
 }
 
 export default new BillingService();

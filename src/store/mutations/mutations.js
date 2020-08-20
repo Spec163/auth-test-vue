@@ -26,6 +26,10 @@ export default {
             ]
         }
     },
+    CHANGE_USER_TARIFF_MUTATION(state, tariff) {
+        console.log('Tariff in Mutation: ', tariff)
+        console.log()
+    }
 
     // ADD_TARIFF_TO_STATE(state, tariff) {
     //     state.tariffs = [
