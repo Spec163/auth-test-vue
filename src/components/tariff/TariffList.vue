@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout align-content-space-around justify-start column>
-      <tariff-form :tariffAttr="tariff"/>
+      <tariff-form v-if="IS_ADMIN_ROLE" :tariffAttr="tariff"/>
       <tariff-row v-for="(tariff, index) in SORTED_TARIFFS"
                   :key="`tariff.id - ${index}`"
                   :tariff="tariff"
@@ -30,7 +30,7 @@ export default {
       tariff: new Tariff,
     }
   },
-  computed: mapGetters(['SORTED_TARIFFS']),
+  computed: mapGetters(['SORTED_TARIFFS', 'IS_ADMIN_ROLE']),
   methods: {
     ...mapActions([
       'GET_TARIFFS_FROM_API',
