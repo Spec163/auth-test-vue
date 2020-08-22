@@ -1,52 +1,69 @@
 <template>
-    <v-container>
-        <v-layout align-content-space-around justify-start column>
-<!--            <tariff-form :tariffAttr="tariff" />-->
-            <tariff-row v-for="(tariff, index) in SORTED_TARIFFS"
-                        :key="`tariff.id - ${index}`"
-                        :tariff="tariff"
-                        :editTariff="editTariff" />
-        </v-layout>
-    </v-container>
+  <v-container>
+    <v-layout align-content-space-around justify-start column>
+      <tariff-form :tariffAttr="tariff"/>
+      <tariff-row v-for="(tariff, index) in SORTED_TARIFFS"
+                  :key="`tariff.id - ${index}`"
+                  :tariff="tariff"
+                  :editTariff="editTariff"
+                  :changeAccountTariff="changeAccountTariff"
+      />
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-    import TariffRow from './TariffRow'
-    // import TariffForm from './TariffForm'
-    import {mapActions, mapGetters} from 'vuex'
-    import Tariff from '../../models/tariff'
+import TariffRow from './TariffRow'
+import TariffForm from './TariffForm'
+import {mapActions, mapGetters} from 'vuex'
+import Tariff from '../../models/tariff'
+import BillingService from '../../services/billing-service/billing-service'
 
-    export default {
-        name: "TariffList",
-        components: {
-            TariffRow,
-            // TariffForm
-        },
-        data() {
-            return {
-                tariff: new Tariff,
-
-            }
-        },
-        computed: mapGetters(['SORTED_TARIFFS']),
-        methods: {
-            ...mapActions([
-                'GET_TARIFFS_FROM_API',
-            ]),
-            editTariff(tariff) {
-                this.tariff = tariff
-            }
-        },
-
-        created() {
-            this.GET_TARIFFS_FROM_API()
-                .then(response => {
-                    if (response.data) {
-                        console.log('Tariffs arrived!', response.data)
-                    }
-                })
-        }
+export default {
+  name: "TariffList",
+  components: {
+    TariffRow,
+    TariffForm
+  },
+  data() {
+    return {
+      tariff: new Tariff,
     }
+  },
+  computed: mapGetters(['SORTED_TARIFFS']),
+  methods: {
+    ...mapActions([
+      'GET_TARIFFS_FROM_API',
+    ]),
+    editTariff(tariff) {
+      this.tariff = tariff
+    },
+    changeAccountTariff(tariff) {
+
+      // this.CHANGE_ACCOUNT_TARIFF_ACTION(this.tariff)
+      BillingService.changeUserTariff(tariff.id)
+          .then(
+              status => {
+                if (status === 200) {
+                  this.myTariff = tariff.title
+                  console.log('new tariff:  ', this.myTariff)
+                }
+              }
+          )
+    }
+  },
+
+  created() {
+    // this.myTariff = this.GET_ACCOUNT_TARIFF_TITLE
+    // console.log('myTariff: ', this.myTariff)
+    this.GET_TARIFFS_FROM_API()
+        .then(response => {
+          if (response.data) {
+            console.log('Tariffs arrived!', response.data)
+          }
+        })
+  }
+}
 </script>
 
 <style scoped>

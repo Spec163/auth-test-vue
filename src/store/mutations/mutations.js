@@ -26,35 +26,36 @@ export default {
             ]
         }
     },
-    CHANGE_USER_TARIFF_MUTATION(state, tariff) {
+    /*CHANGE_ACCOUNT_TARIFF_MUTATION(state, tariff) {
         console.log('Tariff in Mutation: ', tariff)
-        console.log()
-    }
+        state.accountInfo[0].title = tariff.title
+        state.accountInfo[0].price = tariff.price
+        state.accountInfo[0].call = tariff.call
+        state.accountInfo[0].sms = tariff.sms
+        state.accountInfo[0].internet = tariff.internet
+        state.accountInfo[0].balance = state.accountInfo.balance - tariff.price
 
-    // ADD_TARIFF_TO_STATE(state, tariff) {
-    //     state.tariffs = [
-    //         ...state.tariffs,
-    //         tariff
-    //     ]
-    // },
-    // UPDATE_TARIFF_TO_STATE(state, tariff) {
-    //     const updateIndex = state.tariffs.findIndex(item => item.id === tariff.id)
-    //
-    //     state.tariffs = [
-    //         ...state.tariffs.slice(0, updateIndex),
-    //         tariff,
-    //         ...state.tariffs.slice(updateIndex + 1)
-    //     ]
-    // },
-    // REMOVE_TARIFF_MUTATION(state, tariff) {
-    //     const deletionIndex = state.tariffs.findIndex(item => item.id === tariff.id)
-    //
-    //     if (deletionIndex > -1) {
-    //         state.tariffs = [
-    //             ...state.tariffs.slice(0, deletionIndex),
-    //             ...state.tariffs.slice(deletionIndex + 1)
-    //         ]
-    //     }
-    // },
+        console.log('Acc: ', state.accountInfo)
+    },*/
+
+    SET_ACCOUNT_INFORMATION_TO_STATE: (state, accountInfo) => {
+        state.accountInfo = accountInfo
+    },
+
+    ADD_TARIFF_MUTATION(state, tariff) {
+        state.tariffs = [
+            ...state.tariffs,
+            tariff
+        ]
+    },
+    UPDATE_TARIFF_MUTATION(state, tariff) {
+        const updateIndex = state.tariffs.findIndex(item => item.id === tariff.id)
+
+        state.tariffs = [
+            ...state.tariffs.slice(0, updateIndex),
+            tariff,
+            ...state.tariffs.slice(updateIndex + 1)
+        ]
+    },
 
 }

@@ -7,7 +7,7 @@ class BillingService {
     expenses(maxServiceCost) {
         return axios
             .post(API_URL + 'expenses', {
-                phoneNumber: maxServiceCost.phoneNumber
+                    phoneNumber: maxServiceCost.phoneNumber
                 },
                 {headers: authHeader()}
             )
@@ -18,6 +18,7 @@ class BillingService {
                 return error.response
             });
     }
+
     billingOrder(order) {
         return axios
             .post(API_URL + 'billing', {
@@ -28,11 +29,20 @@ class BillingService {
                 {headers: authHeader()}
             )
     }
-    changeUserTariff(tariff) {
-        console.log('New tariff: ', tariff)
-        // return axios.post(API_URL + 'change-tariff',{
-        //
-        // })
+
+    changeUserTariff(id) {
+        return axios.post(
+            API_URL + 'change-tariff',
+            {id: id},
+            {headers: authHeader()}
+        )
+            .then(response => {
+                return response.status
+            })
+            .catch(error => {
+                console.error(error)
+                return error.status
+            })
     }
 }
 

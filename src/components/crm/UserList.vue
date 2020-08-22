@@ -1,23 +1,23 @@
 <template>
-    <div>
-        <v-btn @click="clickInfo">info</v-btn>
-        <p>{{ GET_USERS_INFO}}</p>
+  <div>
+    <v-btn @click="clickInfo">info</v-btn>
+    <p>{{ GET_USERS_INFO }}</p>
 
-        <user-list-item
-            v-for="user in GET_USERS_INFO"
-            :key="user.id"
-            :user_data="user"
-            @replenishBalance="replenishBalance"
-        />
+    <user-list-item
+        v-for="user in GET_USERS_INFO"
+        :key="user.id"
+        :user_data="user"
+        @replenishBalance="replenishBalance"
+    />
 
-    </div>
+  </div>
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import UserListItem from './UserListItem'
 import Balance from '../../models/balance'
-import UserInfo from '../../models/users-info'
+import UserInfo from '../../models/user-info'
 import BalanceReplenishmentService from '../../services/billing-service/balance-replenishment-service'
 
 export default {
@@ -37,7 +37,7 @@ export default {
 
   computed: {
     ...mapGetters([
-        'GET_USERS_INFO',
+      'GET_USERS_INFO',
     ])
   },
 

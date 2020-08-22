@@ -3,16 +3,16 @@ import authHeader from '../../services/auth-header'
 // import Balance from '../../models/balance'
 // import BalanceReplenishmentService from '../../services/billing-service/balance-replenishment-service'
 import TariffService from '../../services/requests/tariff-service'
-import BillingService from '../../services/billing-service/billing-service'
-// import UserService from "@/services/requests/user-service";
+// import BillingService from '../../services/billing-service/billing-service'
+import UserService from '../../services/requests/user-service'
 
 const API_URL = 'http://localhost:8090/'
 // let newBalance = new Balance('', 0)
 
-export  default {
+export default {
     GET_USERS_INFO_FROM_API({commit}) {
         return axios.get(API_URL + 'admin/users/',
-            { headers: authHeader() })
+            {headers: authHeader()})
             .then((users) => {
                 commit('SET_USERS_INFO_TO_STATE', users.data);
                 return users;
@@ -28,7 +28,7 @@ export  default {
 
     GET_TARIFFS_FROM_API({commit}) {
         return axios.get(API_URL + 'profile/tariff',
-            { headers: authHeader() })
+            {headers: authHeader()})
             .then((tariffs) => {
                 commit('SET_TARIFFS_TO_STATE', tariffs.data);
                 return tariffs;
@@ -43,6 +43,32 @@ export  default {
     //     const userData = await UserService.getUserInfo()
     // },
 
+    ADD_TARIFF_ACTION({commit, state}, tariff) {
+        TariffService.addTariff(tariff).then(response => {
+            console.log('Add response: ', response)
+
+            const result = response.data
+            const index = state.tariffs.findIndex(item => item.id === result.id)
+
+            if (index > -1) {
+                commit('UPDATE_TARIFF_MUTATION', result)
+            } else {
+                commit('ADD_TARIFF_MUTATION', result)
+            }
+        })
+
+
+    },
+    UPDATE_TARIFF_ACTION({commit}, tariff) {
+        TariffService.updateTariff(tariff).then(
+            response => {
+                console.log('Update response:', response)
+                commit('UPDATE_TARIFF_MUTATION', response.data)
+            }
+        )
+
+    },
+
     async REMOVE_TARIFF_ACTION({commit}, tariff) {
         const result = await TariffService.removeTariff(tariff.id)
 
@@ -53,11 +79,20 @@ export  default {
         }
     },
 
-    async CHANGE_USER_TARIFF_ACTION({commit}, tariff) {
-        const result = await BillingService.changeUserTariff(tariff);
+    /*async CHANGE_ACCOUNT_TARIFF_ACTION({commit}, tariff) {
+        const result = await BillingService.changeUserTariff(tariff.id);
 
         if (result.status === 200) {
-            commit('CHANGE_USER_TARIFF_MUTATION', tariff)
+            commit('CHANGE_ACCOUNT_TARIFF_MUTATION', tariff)
         }
+    },*/
+
+    GET_ACCOUNT_INFORMATION_FROM_API({commit},) {
+        UserService.getAccountInformation().then(
+            response => {
+                commit('SET_ACCOUNT_INFORMATION_TO_STATE', response.data)
+            }
+        )
     }
+
 }

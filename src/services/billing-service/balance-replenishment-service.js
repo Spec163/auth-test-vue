@@ -8,16 +8,16 @@ class BalanceReplenishmentService {
         return axios
             .post(API_URL + 'replenish/',
                 {
-                phoneNumber: balance.phoneNumber,
-                money: balance.money
+                    phoneNumber: balance.phoneNumber,
+                    money: balance.money
                 },
                 {headers: authHeader()}
             )
             .then(response => {
                 return response
             })
-            .catch(function (error) {
-                return error.response
+            .catch(error => {
+                return error
             });
 
     }

@@ -1,4 +1,4 @@
-export default class UsersInfo {
+export default class UserInfo {
     constructor(login, balance, phoneNumber, title, price, call, sms, internet) {
         this.login = login
         this.balance = balance

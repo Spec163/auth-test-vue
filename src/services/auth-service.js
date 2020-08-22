@@ -28,7 +28,7 @@ class AuthService {
                 phoneNumber: user.phoneNumber,
                 login: user.login,
                 password: user.password
-        })
+            })
             .then(response => {
                 return response
             })
