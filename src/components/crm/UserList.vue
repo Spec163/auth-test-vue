@@ -49,6 +49,7 @@ export default {
     clickInfo() {
       console.log('ggggg')
     },
+    // кривой метод
     replenishBalance(newUserInfo, money) {
 
       this.balance.phoneNumber = newUserInfo.phoneNumber

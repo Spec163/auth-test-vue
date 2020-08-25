@@ -5,6 +5,7 @@ import authHeader from '../../services/auth-header'
 import TariffService from '../../services/requests/tariff-service'
 // import BillingService from '../../services/billing-service/billing-service'
 import UserService from '../../services/requests/user-service'
+import BalanceReplenishmentService from "@/services/billing-service/balance-replenishment-service";
 
 const API_URL = 'http://localhost:8090/'
 // let newBalance = new Balance('', 0)
@@ -87,10 +88,20 @@ export default {
         }
     },*/
 
-    GET_ACCOUNT_INFORMATION_FROM_API({commit},) {
+    GET_ACCOUNT_INFORMATION_FROM_API({commit}) {
         UserService.getAccountInformation().then(
             response => {
                 commit('SET_ACCOUNT_INFORMATION_TO_STATE', response.data)
+            }
+        )
+    },
+    UPDATE_ACCOUNT_BALANCE({commit}, balance) {
+        BalanceReplenishmentService.replenish(balance).then(
+            response => {
+                if (response.status === 200) {
+                    commit('SET_UPDATED_ACCOUNT_BALANCE_TO_STATE', balance)
+                    return true
+                } else return false
             }
         )
     }

@@ -1,8 +1,17 @@
 <template>
   <v-app>
-    <div> <!-- id="app"-->
-      <v-app-bar app color="deep-purple accent-4" dense dark>
-        <v-app-bar-nav-icon v-if="GET_USER_IS_ACTIVE"></v-app-bar-nav-icon>
+    <div>
+      <v-app-bar
+          app
+          color="deep-purple accent-4"
+          dense
+          dark
+      >
+
+        <v-app-bar-nav-icon
+            v-if="GET_USER_IS_ACTIVE"
+            @click.stop="drawer = !drawer"
+        ></v-app-bar-nav-icon>
 
         <v-toolbar-title>Title</v-toolbar-title>
 
@@ -33,6 +42,51 @@
         </v-btn>
       </v-app-bar>
 
+      <v-navigation-drawer
+          v-model="drawer"
+          absolute
+          bottom
+          temporary
+      >
+        <v-list
+            nav
+        >
+          <v-list-item-group
+              v-model="group"
+              active-class="deep-purple--text text--accent-4"
+          >
+            <v-list-item
+                @click="$router.push('/profile')"
+                :disabled="$route.path === '/profile'"
+            >
+              <v-list-item-title>
+                  Profile
+              </v-list-item-title>
+            </v-list-item>
+
+            <v-list-item
+                @click="$router.push('/crm/user-list')"
+                :disabled="$route.path === '/crm/user-list'"
+            >
+              <v-list-item-title>
+                  CRM
+              </v-list-item-title>
+            </v-list-item>
+
+            <v-list-item
+                @click="$router.push('/imitator')"
+                :disabled="$route.path === '/imitator'"
+            >
+              <v-list-item-title>
+                  Imitator
+              </v-list-item-title>
+            </v-list-item>
+
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
+
+
       <div class="container">
         <router-view/>
       </div>
@@ -45,6 +99,19 @@ import {mapGetters} from 'vuex'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      drawer: false,
+      group: null
+    }
+  },
+
+  watch: {
+    group () {
+      this.drawer = false
+    },
+  },
+
   computed: {
     ...mapGetters([
       'GET_USER_IS_ACTIVE'

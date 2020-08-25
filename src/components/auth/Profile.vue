@@ -1,42 +1,13 @@
 <template>
   <div>
     <h3>Token from vuex: </h3>
-    <h4 class="get-info"> {{ GET_USER_TOKEN }} <br> {{ GET_USER_ROLE }} </h4>
+    <h4 class="get-info"> {{ GET_USER_TOKEN }}</h4>
 
-    <h4>Информация о вашем аккаунте: <br>{{ GET_ACCOUNT_INFORMATION }}</h4>
-
-
-    <h2>{{ message }}</h2>
-    <v-form @submit.prevent="replenishBalance">
-      <v-container>
-        <v-row justify="center">
-          <v-col cols="12" sm="8" md="3">
-            <v-text-field
-                type="number"
-                outlined
-                label="Money"
-                v-model="balance.money"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col cols="12" sm="8" md="3">
-            <v-text-field
-                label="Phone Number"
-                type="text"
-                v-model="balance.phoneNumber"
-                v-if="IS_ADMIN_ROLE"
-                outlined
-            ></v-text-field>
-          </v-col>
-        </v-row>
-
-        <v-btn class="mx-2" fab dark color="indigo" @click="replenishBalance">
-          <v-icon dark>mdi-plus</v-icon>
-        </v-btn>
-
-      </v-container>
-    </v-form>
+    <profile-info
+        :accountInfo="GET_ACCOUNT_INFORMATION"
+        :replenishBalance="replenishBalance"
+        :message="message"
+    />
 
   </div>
 </template>
@@ -44,10 +15,14 @@
 <script>
 import {mapActions, mapGetters} from 'vuex'
 import Balance from '../../models/balance'
-import BalanceReplenishmentService from '../../services/billing-service/balance-replenishment-service'
+import ProfileInfo from './ProfileInfo'
 
 export default {
   name: "Profile",
+  components: {ProfileInfo},
+  template: {
+    ProfileInfo
+  },
   data() {
     return {
       balance: new Balance('', ''),
@@ -58,19 +33,24 @@ export default {
     ...mapGetters([
       'GET_USER_TOKEN',
       'GET_USER_ROLE',
-      'IS_ADMIN_ROLE',
       'GET_ACCOUNT_INFORMATION',
     ]),
   },
 
   methods: {
-    ...mapActions(['GET_ACCOUNT_INFORMATION_FROM_API']),
-    replenishBalance() {
+    ...mapActions(['GET_ACCOUNT_INFORMATION_FROM_API', 'UPDATE_ACCOUNT_BALANCE']),
+    replenishBalance(money) {
+      this.balance.money = money
       if (this.balance.money > 0 && this.balance.money !== null) {
-        BalanceReplenishmentService.replenish(this.balance)
-        console.log(this.balance)
-      } else this.message = 'Amount entered incorrectly'
-      this.balance = ''
+        const isReplenished = this.UPDATE_ACCOUNT_BALANCE(this.balance)
+        if (isReplenished) {
+          this.message = 'Your balance has been replenished'
+        } else {
+          this.message = 'An unexpected error. Try to top up your balance later.'
+        }
+      } else {
+        this.message = 'Amount entered incorrectly'
+      }
     }
   },
 
