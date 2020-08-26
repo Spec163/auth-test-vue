@@ -1,9 +1,9 @@
 <template>
-  <v-card>
+  <v-card height="auto" class="blue-grey black--text title ma-4">
     <h3>{{ message }}</h3>
-    <v-form @submit.prevent="replenishBalance">
+    <v-form @submit.prevent="replenishAccountBalance">
       <v-container>
-        <v-simple-table height="90px" class="blue-grey black--text title">
+        <v-simple-table class="blue-grey black--text title">
           <template v-slot:default>
             <thead>
             <tr>
@@ -23,7 +23,7 @@
                 ></v-text-field>
               </td>
               <td>
-                <v-btn class="mx-2" fab dark x-small color="indigo" @click="replenishBalance">
+                <v-btn class="mx-2" fab dark x-small color="indigo" @click="replenishAccountBalance">
                   <v-icon dark>mdi-plus</v-icon>
                 </v-btn>
               </td>
@@ -41,14 +41,10 @@
 
 export default {
   name: "UserListItem",
-  props: {
-    user_data: {
-      type: Object,
-      default() {
-        return {}
-      }
-    }
-  },
+  props: [
+    'replenishBalance',
+    'user_data'
+  ],
   data() {
     return {
       message: '', // вывести сообщение во временном всплывающем окне
@@ -56,7 +52,7 @@ export default {
     }
   },
   methods: {
-    replenishBalance() {
+    replenishAccountBalance() {
       if (this.money > 0 && this.money !== null) {
         this.user_data.balance = parseInt(this.user_data.balance) + parseInt(this.money)
         this.$emit('replenishBalance', this.user_data, this.money)

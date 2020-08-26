@@ -2,7 +2,19 @@
   <v-container>
     <v-layout align-content-space-around justify-start column>
       <tariff-form v-if="IS_ADMIN_ROLE" :tariffAttr="tariff"/>
-      <tariff-row v-for="(tariff, index) in SORTED_TARIFFS"
+
+      <v-col cols="12" sm="4">
+        <v-text-field
+            class="pa-3"
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Введите название тарифа"
+            single-line
+            hide-details
+        ></v-text-field>
+      </v-col>
+
+      <tariff-row v-for="(tariff, index) in filteredTariffs"
                   :key="`tariff.id - ${index}`"
                   :tariff="tariff"
                   :editTariff="editTariff"
@@ -27,10 +39,18 @@ export default {
   },
   data() {
     return {
+      search: '',
       tariff: new Tariff,
     }
   },
-  computed: mapGetters(['SORTED_TARIFFS', 'IS_ADMIN_ROLE']),
+  computed: {
+    ...mapGetters(['SORTED_TARIFFS', 'IS_ADMIN_ROLE']),
+    filteredTariffs() {
+      return this.SORTED_TARIFFS.filter(tariff => {
+        return tariff.title.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
+  },
   methods: {
     ...mapActions([
       'GET_TARIFFS_FROM_API',

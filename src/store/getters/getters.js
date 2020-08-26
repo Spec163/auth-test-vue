@@ -13,9 +13,11 @@ export default {
     },
     // сделать сортироваку
     GET_USERS_INFO(state) {
-        return state.users
+        return state.users.sort((a, b) => (a.id - b.id))
     },
-    SORTED_TARIFFS: state => (state.tariffs || []).sort((a, b) => -(a.id - b.id)),
+    SORTED_TARIFFS(state) {
+        return state.tariffs.sort((a, b) => (a.price - b.price))
+    },
 
     GET_ACCOUNT_INFORMATION(state) {
         return state.accountInfo

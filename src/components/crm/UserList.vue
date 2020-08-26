@@ -1,13 +1,21 @@
 <template>
   <div>
-    <v-btn @click="clickInfo">info</v-btn>
-    <p>{{ GET_USERS_INFO }}</p>
+    <v-col cols="12" sm="5">
+      <v-text-field
+          class="ma-4"
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Введите номер телефона"
+          single-line
+          hide-details
+      ></v-text-field>
+    </v-col>
 
     <user-list-item
-        v-for="user in GET_USERS_INFO"
+        v-for="user in filteredUserList"
         :key="user.id"
         :user_data="user"
-        @replenishBalance="replenishBalance"
+        :replenishBalance="replenishBalance"
     />
 
   </div>
@@ -24,6 +32,7 @@ export default {
   name: "UserList",
   data() {
     return {
+      search: '',
       balance: new Balance('', 0),
       userInfo: new UserInfo(
           '', 0, '', '',
@@ -34,11 +43,16 @@ export default {
   components: {
     UserListItem
   },
-
   computed: {
     ...mapGetters([
       'GET_USERS_INFO',
-    ])
+    ]),
+    filteredUserList() {
+      return this.GET_USERS_INFO.filter(user => {
+        return user.phoneNumber.toLowerCase().includes(this.search.toLowerCase())
+            || user.login.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
   },
 
   methods: {
@@ -46,10 +60,7 @@ export default {
       'GET_USERS_INFO_FROM_API',
       'UPDATE_USERS_INFO_BALANCE'
     ]),
-    clickInfo() {
-      console.log('ggggg')
-    },
-    // кривой метод
+
     replenishBalance(newUserInfo, money) {
 
       this.balance.phoneNumber = newUserInfo.phoneNumber
@@ -61,7 +72,6 @@ export default {
       this.UPDATE_USERS_INFO_BALANCE(this.userInfo)
     }
   },
-  // Fixed bug: вызов после инициализации реактивности
   created() {
     this.GET_USERS_INFO_FROM_API()
         .then(response => {

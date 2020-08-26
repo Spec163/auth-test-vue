@@ -14,7 +14,7 @@
               small
               @click="dialog = !dialog"
           >
-            Сменить тарифф
+            Сменить тариф
           </v-btn>
 
           <v-btn
@@ -113,16 +113,23 @@ import {mapActions, mapGetters} from 'vuex'
 
 export default {
   name: "TariffRow",
-  props: ['tariff', 'editTariff', 'changeAccountTariff'],
+  props: [
+    'tariff',
+    'editTariff',
+    'changeAccountTariff',
+  ],
+
   data() {
     return {
       dialog: false,
       message: '',
     }
   },
+
   computed: {
     ...mapGetters(['IS_ADMIN_ROLE']),
   },
+
   methods: {
     ...mapActions([
       'REMOVE_TARIFF_ACTION',
