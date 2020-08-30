@@ -55,7 +55,7 @@ export default {
     replenishAccountBalance() {
       if (this.money > 0 && this.money !== null) {
         this.user_data.balance = parseInt(this.user_data.balance) + parseInt(this.money)
-        this.$emit('replenishBalance', this.user_data, this.money)
+        this.replenishBalance(this.user_data, this.money)
       } else this.message = 'Amount entered incorrectly'
       this.money = 0
     }

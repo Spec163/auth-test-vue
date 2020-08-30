@@ -7,19 +7,25 @@ import store from '../store/index'
 
 Vue.use(Router);
 
-
+// реализовать beforeEnter для всего
 export const router = new Router({
     mode: 'history',
     routes: [
-        /*        {
-                    path: '/',
-                    name: 'home',
-                    component: Home
-                },
-                {
-                    path: '/home',
-                    component: Home
-                },*/
+        {
+            // 404
+            path: '*',
+            name: 'NotFound',
+            redirect: 'profile',
+
+            beforeEnter(to, from, next) {
+                if (store.getters.GET_USER_IS_ACTIVE) {
+                    next('profile')
+                } else {
+                    console.warn('Вам необходимо авторизоваться!')
+                    next('login')
+                }
+            },
+        },
         {
             path: '/login',
             name: 'login',
@@ -33,35 +39,66 @@ export const router = new Router({
         {
             path: '/profile',
             name: 'profile',
-            // lazy-loaded
-            component: () => import('../components/auth/Profile')
+            component: () => import('../components/auth/Profile'),
+
+            beforeEnter(to, from, next) {
+                if (store.getters.GET_USER_IS_ACTIVE) {
+                    next()
+                } else {
+                    console.warn('Вам необходимо авторизоваться!')
+                    next('login')
+                }
+            },
         },
         {
             path: '/imitator',
             name: 'imitator',
-            component: () => import('../components/billing/Imitator')
+            // lazy-loaded
+            component: () => import('../components/billing/Imitator'),
+
+            beforeEnter(to, from, next) {
+                if (store.getters.GET_USER_IS_ACTIVE) {
+                    next()
+                } else {
+                    console.warn('Вам необходимо авторизоваться!')
+                    next('login')
+                }
+            },
         },
         {
             path: '/crm/user-list',
             name: 'user-list',
+            component: () => import('../components/crm/UserList'),
+
 
             // ужас
             beforeEnter(to, from, next) {
-                if (store.getters.IS_ADMIN_ROLE) {
-                    next()
+                if (store.getters.GET_USER_IS_ACTIVE) {
+                    if (store.getters.IS_ADMIN_ROLE) {
+                        next()
+                    } else {
+                        console.warn('У ВАС НЕДОСТАТОЧНО ПРАВ!!!')
+                        next('profile')
+                    }
                 } else {
-                    console.warn('У ВАС НЕДОСТАТОЧНО ПРАВ!!!')
-                    next('profile')
+                    console.warn('Вам необходимо авторизоваться!')
+                    next('login')
                 }
             },
-
-            component: () => import('../components/crm/UserList')
         },
         {
             path: '/profile/tariff',
             name: 'tariff',
-            // lazy-loaded
-            component: () => import('../components/tariff/TariffList')
+            component: () => import('../components/tariff/TariffList'),
+
+            beforeEnter(to, from, next) {
+                if (store.getters.GET_USER_IS_ACTIVE) {
+                    next()
+                } else {
+                    console.warn('Вам необходимо авторизоваться!')
+                    next('login')
+                }
+            },
         },
 
     ]

@@ -57,7 +57,7 @@
           >
             <v-list-item
                 @click="$router.push('/profile')"
-                :disabled="$route.path === '/profile'"
+                :disabled="$route.name === 'profile'"
             >
               <v-list-item-title>
                   Profile
@@ -66,7 +66,7 @@
 
             <v-list-item
                 @click="$router.push('/crm/user-list')"
-                :disabled="$route.path === '/crm/user-list'"
+                :disabled="$route.name === 'user-list'"
             >
               <v-list-item-title>
                   CRM
@@ -75,7 +75,7 @@
 
             <v-list-item
                 @click="$router.push('/imitator')"
-                :disabled="$route.path === '/imitator'"
+                :disabled="$route.name === 'imitator'"
             >
               <v-list-item-title>
                   Imitator
@@ -122,7 +122,7 @@ export default {
     logOut() {
       this.$store.dispatch('auth/LOGOUT');
       this.$router.push('/login');
-    }
+    },
   }
 }
 </script>
